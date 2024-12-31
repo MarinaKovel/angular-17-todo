@@ -1,19 +1,18 @@
 <div class="form-container">
     <h1>Login</h1>
-    <form>
+    <form [formGroup]="form" (submit)="submit()">
         <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput>
+            <input formControlName="email" matInput>
+            <mat-error>{{ getErrorMessage('email') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Password</mat-label>
-            <input type="password" matInput>
+            <input type="password" formControlName="password" matInput>
+            <mat-error>{{ getErrorMessage('password') }}</mat-error>
         </mat-form-field>
 
-        <button 
-            mat-raised-button 
-            color="primary"   
-        >Submit</button>
+        <button mat-raised-button color="primary" [disabled]="!form.valid">Submit</button>
     </form>
 </div>

@@ -2,9 +2,10 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { LoginComponent, RegistrationComponent } from "./components";
 import { RouterModule, Routes } from "@angular/router";
-import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
 import { MatButton } from "@angular/material/button";
+import { ReactiveFormsModule } from "@angular/forms";
 
 const routes: Routes = [{
     path: 'login',
@@ -19,10 +20,12 @@ const routes: Routes = [{
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
+        ReactiveFormsModule,
         MatFormField,
         MatInput,
         MatLabel,
-        MatButton
+        MatButton,
+        MatError
     ]
 })
 
