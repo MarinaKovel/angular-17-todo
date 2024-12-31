@@ -1,2 +1,13 @@
-<div class="header"></div>
+<header class="header">
+    <button 
+        mat-raised-button 
+        color="primary"
+        [routerLink]="'auth/login'"
+    >Login</button>
+    <button 
+        mat-raised-button 
+        color="primary"
+        [routerLink]="'auth/registration'"
+    >Register</button>
+</header>
 <router-outlet></router-outlet>
