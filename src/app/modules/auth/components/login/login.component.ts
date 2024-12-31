@@ -26,18 +26,6 @@ export class LoginComponent {
     }
     return (fieldName === 'email') ? 'Email is not valid' : 'Password must be >5 symbols'
   }
-
-  public getEmailErrorMessage(): string {
-    const field: AbstractControl = this.form.controls['email'];
-    const isRequired: boolean = field?.errors?.['required'];
-    return isRequired ? 'Field is required' : 'Email is not valid'
-  }
-
-  public getPasswordErrorMessage(): string {
-    const field: AbstractControl = this.form.controls['password'];
-    const isRequired: boolean = field?.errors?.['required'];
-    return isRequired ? 'Field is required' : 'Password must be >5 symbols'
-  }
   
   private initForm(): void {
     this.form = new FormGroup<any>({

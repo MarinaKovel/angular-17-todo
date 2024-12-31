@@ -1,1 +1,24 @@
-<p>registration works!</p>
+<div class="form-container">
+    <h1>Registration</h1>
+    <form [formGroup]="form" (submit)="submit()">
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput>
+            <mat-error>{{ getErrorMessage('email') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Login</mat-label>
+            <input formControlName="login" matInput>
+            <mat-error>{{ getErrorMessage('login') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input type="password" formControlName="password" matInput>
+            <mat-error>{{ getErrorMessage('password') }}</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>
