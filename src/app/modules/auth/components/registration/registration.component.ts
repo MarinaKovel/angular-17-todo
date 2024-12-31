@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { formFieldTypes } from '../../types';
+import { UserRegisterData } from '../../interfaces';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registration',
@@ -10,12 +12,22 @@ import { formFieldTypes } from '../../types';
 export class RegistrationComponent {
 public form!: FormGroup
 
-  constructor() {
+  constructor(
+    private matSnackBar: MatSnackBar
+  ) {
     this.initForm()
   }
   
   public submit(): void {
-    
+    const login: string = this.form.value.login
+    const userData: UserRegisterData = {
+      email: this.form.value.email,
+      password: this.form.value.password,
+      login: this.form.value.login,
+    }
+
+    localStorage.setItem(login, JSON.stringify(userData));
+    this.matSnackBar.open('Success')
   }
 
   public getErrorMessage(fieldName: formFieldTypes): string {
