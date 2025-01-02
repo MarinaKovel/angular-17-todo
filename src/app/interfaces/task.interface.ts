@@ -1,4 +1,5 @@
 export interface Task {
     task: string;
-    worker: string
+    worker: string;
+    creator: string;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../../../interfaces';
 import { AuthService } from '../../../../services';
@@ -8,7 +8,7 @@ import { Task } from '../../../../interfaces/task.interface';
   selector: 'app-trello',
   templateUrl: './trello.component.html',
   styleUrl: './trello.component.scss',
-  
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrelloComponent {
   public form!: FormGroup
@@ -25,11 +25,13 @@ export class TrelloComponent {
     const task: Task = {
       task: this.form.value.task,
       worker: this.form.value.worker,
+      creator: this.authService.activeUser?.login || ''
     }
     const tasks: Task[] = !!localStorage.getItem('tasks') 
     ? JSON.parse(localStorage.getItem('tasks') || '')
     : [];
-      tasks.push(task)
+    tasks.push(task)
+    this.form.reset()
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
@@ -37,7 +39,7 @@ export class TrelloComponent {
   private initForm(): void {
     this.form = new FormGroup<any>({
       task: new FormControl(null, [Validators.required]),
-      worker: new FormControl(null)
+      worker: new FormControl(null),
     })
   }
 }
