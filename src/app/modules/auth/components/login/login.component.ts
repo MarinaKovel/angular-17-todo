@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from '../../../../services';
 import { UserRegisterData } from '../../../../interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
