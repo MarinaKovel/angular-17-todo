@@ -35,11 +35,11 @@ public form!: FormGroup
       users.push(userData)
 
     localStorage.setItem('users', JSON.stringify(users));
-    
 
     this.matSnackBar.open('Success');
     this.router.navigate(['./trello']);
     this.authService.isAuth$.next(true);
+    this.authService.activeUser = userData;
   }
 
   public getErrorMessage(fieldName: formFieldTypes): string {

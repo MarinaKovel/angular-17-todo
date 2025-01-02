@@ -7,7 +7,7 @@ import { UserRegisterData } from '../interfaces';
 })
 export class AuthService {
   public isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
-  public activeUser!: UserRegisterData
+  public activeUser!: UserRegisterData | null
 
   constructor() {
     this.checkIsAuth()

@@ -32,6 +32,7 @@ export class AppComponent {
     localStorage.setItem('users', JSON.stringify(users))
 
     this.router.navigateByUrl('/auth/login');
+    this.authService.activeUser = null;
     this.authService.isAuth$.next(false);
   }
 }

@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AuthService } from '../../../../services';
+import { UserRegisterData } from '../../../../interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +15,39 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 export class LoginComponent {
   public form!: FormGroup
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private matSnackBar: MatSnackBar,
+    private router: Router
+  ) {
     this.initForm()
   }
   
   public submit(): void {
-    console.log(this.form.controls);
+    const users: UserRegisterData[] = this.authService.getUsers();
+    const user: UserRegisterData | undefined = users.find((userData: UserRegisterData): boolean => userData.email === this.form.value.email)
+
+    if (!user) {
+      this.matSnackBar.open('User not found')
+      return;
+    }
+
+    if (this.form.value.password !== user?.password) {
+      this.matSnackBar.open('Check your password')
+      return;
+    }
+
+    users.map((userRegisterData: UserRegisterData) => {
+      if (userRegisterData.login === user?.login) {
+        userRegisterData.isAuth = true;
+      }
+    })
+    localStorage.setItem('users', JSON.stringify(users))
+
+    this.matSnackBar.open('Success')
+    this.router.navigateByUrl('trello')
+    this.authService.isAuth$.next(true);
+    this.authService.activeUser = user;
   }
 
   public getErrorMessage(fieldName: string): string {
