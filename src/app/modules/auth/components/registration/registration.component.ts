@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { formFieldTypes } from '../../types';
-import { UserRegisterData } from '../../interfaces';
+import { UserRegisterData } from '../../../../interfaces';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../services';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss'
+  styleUrl: './registration.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent {
 public form!: FormGroup
 
   constructor(
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private router: Router,
+    private authService: AuthService
   ) {
     this.initForm()
   }
@@ -24,10 +29,17 @@ public form!: FormGroup
       email: this.form.value.email,
       password: this.form.value.password,
       login: this.form.value.login,
+      isAuth: true
     }
+    const users: UserRegisterData[] = this.authService.getUsers();
+      users.push(userData)
 
-    localStorage.setItem(login, JSON.stringify(userData));
-    this.matSnackBar.open('Success')
+    localStorage.setItem('users', JSON.stringify(users));
+    
+
+    this.matSnackBar.open('Success');
+    this.router.navigate(['./trello']);
+    this.authService.isAuth$.next(true);
   }
 
   public getErrorMessage(fieldName: formFieldTypes): string {

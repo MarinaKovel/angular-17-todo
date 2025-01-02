@@ -9,5 +9,9 @@ export const routes: Routes = [
     {
         path: 'auth',
         loadChildren: () => import('./modules/auth/auth.module').then(mod => mod.AuthModule) // Lazy loading
+    },
+    {
+        path: 'trello',
+        loadChildren: () => import('./modules/trello/trello.module').then(mod => mod.TrelloModule) // Lazy loading
     }
 ];
