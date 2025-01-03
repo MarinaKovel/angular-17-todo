@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Task } from '../../../../interfaces/task.interface';
 import { TrelloList } from '../../../../interfaces/trello-list.interface';
 import { AuthService } from '../../../../services';
+import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-trello-list',
@@ -10,26 +11,29 @@ import { AuthService } from '../../../../services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrelloListComponent {
+  public reload$: BehaviorSubject<null> = new BehaviorSubject<null>(null)
   public tasks: Task[] = []
-  public model: TrelloList = {
-    assignedForMe: [],
-    assignedFromMe: []
+  public model$: Observable<TrelloList>
+
+  constructor(private authService: AuthService, ) {
+    this.model$ = this.reload$.pipe(switchMap(() => this.initModel()))
   }
 
-  constructor(private authService: AuthService) {
-    this.initTasks()
-  }
-
-  private initTasks(): void {
+  public initModel(): Observable<TrelloList> {
     const tasksLocalStorage: string = localStorage.getItem('tasks') || '[]'
     const tasks: Task[] = JSON.parse(tasksLocalStorage)
     const login: string | undefined = this.authService.activeUser?.login
+    const model: TrelloList = {
+      assignedForMe: [],
+      assignedFromMe: []
+    }
     tasks.forEach((task: Task) => {
       if (task.worker === login) {
-        this.model.assignedForMe.push(task)
+        model.assignedForMe.push(task)
       } else if (task.creator === login) {
-        this.model.assignedFromMe.push(task)
+        model.assignedFromMe.push(task)
       }
     })
+    return of(model)
   }
 }

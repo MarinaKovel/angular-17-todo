@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../../../interfaces';
 import { AuthService } from '../../../../services';
 import { Task } from '../../../../interfaces/task.interface';
+import { TrelloListComponent } from '../trello-list/trello-list.component';
 
 @Component({
   selector: 'app-trello',
@@ -11,11 +12,14 @@ import { Task } from '../../../../interfaces/task.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrelloComponent {
+  
   public form!: FormGroup
   public users!: UserRegisterData[];
 
+  @ViewChild('trelloListComponent') private trelloListComponent!: TrelloListComponent
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.initForm()
     this.users = this.authService.getUsers()
@@ -34,6 +38,7 @@ export class TrelloComponent {
     this.form.reset()
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    this.trelloListComponent.reload$.next(null);
   }
 
   private initForm(): void {
