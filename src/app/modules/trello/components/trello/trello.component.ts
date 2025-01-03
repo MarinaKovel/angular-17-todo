@@ -15,14 +15,16 @@ export class TrelloComponent {
   
   public form!: FormGroup
   public users!: UserRegisterData[];
+  public tasks: Task[] = []
 
   @ViewChild('trelloListComponent') private trelloListComponent!: TrelloListComponent
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
   ) {
     this.initForm()
-    this.users = this.authService.getUsers()
+    this.users = this.authService.getUsers().filter((user: UserRegisterData) => user.login !== 'Admin') // TODO add roles
+    this.tasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks') || '') : []
   }
 
   public submit(): void {
@@ -34,10 +36,10 @@ export class TrelloComponent {
     const tasks: Task[] = !!localStorage.getItem('tasks') 
     ? JSON.parse(localStorage.getItem('tasks') || '')
     : [];
-    tasks.push(task)
+    this.tasks.push(task)
     this.form.reset()
 
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
     this.trelloListComponent.reload$.next(null);
   }
 

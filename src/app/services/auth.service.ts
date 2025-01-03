@@ -13,6 +13,10 @@ export class AuthService {
     this.checkIsAuth()
   }
 
+  public isAdmin(): boolean {
+    return this.activeUser?.login === "Admin" // TODO add role
+  }
+
   public getUsers(): UserRegisterData[] {
     return !!localStorage.getItem('users') 
       ? JSON.parse(localStorage.getItem('users') || '')
