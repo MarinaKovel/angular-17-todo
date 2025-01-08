@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../../../interfaces';
 import { AuthService } from '../../../../services';
 import { Task } from '../../../../interfaces/task.interface';
@@ -55,7 +55,14 @@ export class TrelloComponent {
       task: [null, [Validators.required]],
       type: [this.types[0]],
       priority: [this.priority[1]],
-      worker: [null],
+      worker: [null, [Validators.required]],
     })
   }
+
+  public getErrorMessage(fieldName: string): string {
+      const field: AbstractControl = this.form.controls[fieldName];
+      const isRequired: boolean = field?.errors?.['required'];
+      if (isRequired) return 'Field is required'
+      return ''
+    }
 }
