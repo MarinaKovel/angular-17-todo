@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../../../interfaces';
 import { AuthService } from '../../../../services';
 import { Task } from '../../../../interfaces/task.interface';
@@ -25,6 +25,7 @@ export class TrelloComponent {
 
   constructor(
     public authService: AuthService,
+    private fb: FormBuilder,
   ) {
     this.initForm()
     this.users = this.authService.getUsers().filter((user: UserRegisterData) => user.login !== 'Admin') // TODO add roles
@@ -32,8 +33,6 @@ export class TrelloComponent {
   }
 
   public submit(): void {
-    console.log(this.form);
-    
     const task: Task = {
       task: this.form.value.task,
       type: this.form.value.type,
@@ -43,8 +42,7 @@ export class TrelloComponent {
       date: new Date(),
       isDone: false
     }
-    console.log(task);
-    
+
     this.tasks.push(task)
     this.form.reset()
 
@@ -53,11 +51,11 @@ export class TrelloComponent {
   }
 
   private initForm(): void {
-    this.form = new FormGroup<any>({
-      task: new FormControl(null, [Validators.required]),
-      type: new FormControl(this.types[0]),
-      priority: new FormControl(this.priority[1]),
-      worker: new FormControl(null),
+    this.form = this.fb.group({
+      task: [null, [Validators.required]],
+      type: [this.types[0]],
+      priority: [this.priority[1]],
+      worker: [null],
     })
   }
 }
