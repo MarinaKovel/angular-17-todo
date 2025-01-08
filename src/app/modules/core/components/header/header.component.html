@@ -1,0 +1,9 @@
+<header class="header">
+    <mat-toolbar color="primary">
+        <div *ngIf="!(authService.isAuth$ | async)" class="auth-action">
+            <button mat-button routerLink="auth/login" color="secondary">Login</button>
+            <button mat-button routerLink="auth/registration" color="secondary">Register</button>   
+        </div>
+        <button *ngIf="authService.isAuth$ | async" mat-button color="secondary" (click)="logout()">Logout</button>
+    </mat-toolbar>
+</header>

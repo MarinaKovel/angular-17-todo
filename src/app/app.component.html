@@ -1,8 +1,7 @@
-<header class="header">
-    <div *ngIf="!(authService.isAuth$ | async)" class="auth-action">
-        <button mat-raised-button color="primary" [routerLink]="'auth/login'">Login</button>
-        <button mat-raised-button color="primary" [routerLink]="'auth/registration'">Register</button>   
-    </div>
-    <button *ngIf="authService.isAuth$ | async" mat-raised-button color="primary" (click)="logout()">Logout</button>
-</header>
-<router-outlet></router-outlet>
+<app-header></app-header>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+
