@@ -4,6 +4,8 @@ import { UserRegisterData } from '../../../../interfaces';
 import { AuthService } from '../../../../services';
 import { Task } from '../../../../interfaces/task.interface';
 import { TrelloListComponent } from '../trello-list/trello-list.component';
+import { TaskTypeTypes } from '../../../../types/task-type.types';
+import { TaskPriorityTypes } from '../../../../types/task-priority.types';
 
 @Component({
   selector: 'app-trello',
@@ -15,6 +17,8 @@ export class TrelloComponent {
   
   public form!: FormGroup
   public users!: UserRegisterData[];
+  public types: TaskTypeTypes[] = ['task', 'bug', 'cr']
+  public priority: TaskPriorityTypes[] = ['high', 'medium', 'low']
   public tasks: Task[] = []
 
   @ViewChild('trelloListComponent') private trelloListComponent!: TrelloListComponent
@@ -28,14 +32,19 @@ export class TrelloComponent {
   }
 
   public submit(): void {
+    console.log(this.form);
+    
     const task: Task = {
       task: this.form.value.task,
+      type: this.form.value.type,
+      priority: this.form.value.priority,
       worker: this.form.value.worker,
-      creator: this.authService.activeUser?.login || ''
+      creator: this.authService.activeUser?.login || '',
+      date: new Date(),
+      isDone: false
     }
-    const tasks: Task[] = !!localStorage.getItem('tasks') 
-    ? JSON.parse(localStorage.getItem('tasks') || '')
-    : [];
+    console.log(task);
+    
     this.tasks.push(task)
     this.form.reset()
 
@@ -46,6 +55,8 @@ export class TrelloComponent {
   private initForm(): void {
     this.form = new FormGroup<any>({
       task: new FormControl(null, [Validators.required]),
+      type: new FormControl(this.types[0]),
+      priority: new FormControl(this.priority[1]),
       worker: new FormControl(null),
     })
   }

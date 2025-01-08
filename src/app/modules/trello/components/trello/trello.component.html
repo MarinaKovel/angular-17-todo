@@ -7,6 +7,24 @@
             </mat-form-field>
 
             <mat-form-field>
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                    @for (type of types; track type) {
+                    <mat-option [value]="type">{{type}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="priority">
+                    @for (priorityValue of priority; track priorityValue) {
+                    <mat-option [value]="priorityValue">{{priorityValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
             <mat-label>Worker</mat-label>
             <mat-select formControlName="worker">
                 @for (user of users; track user) {

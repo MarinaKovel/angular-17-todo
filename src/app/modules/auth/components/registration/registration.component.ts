@@ -24,7 +24,6 @@ public form!: FormGroup
   }
   
   public submit(): void {
-    const login: string = this.form.value.login
     const userData: UserRegisterData = {
       email: this.form.value.email,
       password: this.form.value.password,
