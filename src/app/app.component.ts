@@ -9,7 +9,7 @@ import { CoreModule } from './modules/core/core.module';
   imports: [
     CommonModule, 
     RouterOutlet, 
-    CoreModule,
+    CoreModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

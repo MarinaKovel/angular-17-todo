@@ -1,0 +1,25 @@
+<mat-grid-list cols="3" rowHeight="50px" gutterSize="10px">
+    <!-- @for(tile of tiles; track $index) {
+        <mat-grid-tile [colspan]="tile.cols" [rowspan]="tile.rows">{{tile.content}}</mat-grid-tile>
+    } -->
+
+    <mat-grid-tile [colspan]="3" [rowspan]="1">
+        <form [formGroup]="search" (submit)="submit()">
+            <mat-form-field>
+              <input matInput formControlName="Search" placeholder="Search task..">
+            </mat-form-field>
+        </form>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <mat-icon fontIcon="list" ></mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+        About us
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+        Social networks
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+        Contact manager
+    </mat-grid-tile>
+</mat-grid-list>
