@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, viewChild, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterData } from '../../../../interfaces';
 import { AuthService } from '../../../../services';
@@ -6,6 +6,15 @@ import { Task } from '../../../../interfaces/task.interface';
 import { TrelloListComponent } from '../trello-list/trello-list.component';
 import { TaskTypeTypes } from '../../../../types/task-type.types';
 import { TaskPriorityTypes } from '../../../../types/task-priority.types';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatTableDataSource } from '@angular/material/table';
+
+const ELEMENT_DATA: UserRegisterData[] = [
+  {email: '1@1', password: '11111', login: '1', isAuth: false},
+  {email: '1@1', password: '11111', login: '2', isAuth: false},
+  {email: '1@1', password: '11111', login: '3', isAuth: false}
+]
 
 @Component({
   selector: 'app-trello',
@@ -13,13 +22,16 @@ import { TaskPriorityTypes } from '../../../../types/task-priority.types';
   styleUrl: './trello.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TrelloComponent {
+export class TrelloComponent implements AfterViewInit {
   
   public form!: FormGroup
   public users!: UserRegisterData[];
   public types: TaskTypeTypes[] = ['task', 'bug', 'cr']
   public priority: TaskPriorityTypes[] = ['high', 'medium', 'low']
   public tasks: Task[] = []
+
+  displayedColumns: string[] = ['email', 'password', 'login', 'isAuth']
+  dataSource = new MatTableDataSource(ELEMENT_DATA)
 
   @ViewChild('trelloListComponent') private trelloListComponent!: TrelloListComponent
 
@@ -65,4 +77,21 @@ export class TrelloComponent {
       if (isRequired) return 'Field is required'
       return ''
     }
+
+  private _liveAnnouncer = inject(LiveAnnouncer);
+  @ViewChild(MatSort) sort?: MatSort;
+
+  public announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`)
+    } else {
+      this._liveAnnouncer.announce('Sorting removed')
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+  }
 }

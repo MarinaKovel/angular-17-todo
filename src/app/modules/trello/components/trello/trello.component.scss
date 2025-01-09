@@ -38,5 +38,9 @@ article {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
 
+.mat-elevation-z8 {
+    min-width: 500px;
+    margin: auto
 }
