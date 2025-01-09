@@ -42,5 +42,17 @@ article {
 
 .mat-elevation-z8 {
     min-width: 500px;
-    margin: auto
+    max-width: 500px;
+    background-color: #f5c9a8;
+    color: #f07838;
+    margin: auto;
 }
+.mat-mdc-header-row {
+    color: #f07838;
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .mat-mdc-cell {
+    color: #f07838;
+  }
