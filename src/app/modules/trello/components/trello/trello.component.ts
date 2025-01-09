@@ -9,7 +9,9 @@ import { TaskPriorityTypes } from '../../../../types/task-priority.types';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 const ELEMENT_DATA: UserRegisterData[] = [
   {email: '1@1', password: '11111', login: '1', isAuth: false},
@@ -33,6 +35,7 @@ export class TrelloComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['email', 'password', 'login', 'isAuth']
   dataSource = new MatTableDataSource(ELEMENT_DATA)
+  dialog = inject(MatDialog)
 
   @ViewChild('trelloListComponent') private trelloListComponent!: TrelloListComponent
   @ViewChild(MatSort) sort?: MatSort
@@ -89,6 +92,13 @@ export class TrelloComponent implements AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting removed')
     }
+  }
+
+  public openDialog() {
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog result: ', result);
+    })
   }
 
   ngAfterViewInit(): void {

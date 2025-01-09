@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrelloComponent } from './components';
+import { DialogComponent, TrelloComponent } from './components';
 import { TrelloListComponent } from './components';
 import { RouterModule, Routes } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [{
     path: '',
@@ -34,7 +35,9 @@ const routes: Routes = [{
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginator
+    MatPaginator,
+    MatDialogModule,
+    DialogComponent
   ]
 })
 export class TrelloModule { }

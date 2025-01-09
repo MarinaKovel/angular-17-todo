@@ -56,3 +56,17 @@ article {
   .mat-mdc-cell {
     color: #f07838;
   }
+
+  .mat-mdc-button {
+    background-color: #5c6b8a;
+    color: white;
+    font-size: large;
+    margin-top: 20px;
+  }
+
+
+  .modal-container {
+    width: 100%;
+    display: flex !important;
+    justify-content: center
+}
