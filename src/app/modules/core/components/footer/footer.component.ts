@@ -18,16 +18,16 @@ export class FooterComponent {
   public search!: FormGroup
 
   constructor() {
-      this.initForm()
-    }
+    this.initForm()
+  }
 
   public submit(): void {
-      console.log(this.search.value);
-    }
+    console.log(this.search.value);
+  }
 
-    private initForm(): void {
-        this.search = new FormGroup<any>({
-          search: new FormControl(null),
-        })
-      }
+  private initForm(): void {
+    this.search = new FormGroup<any>({
+      search: new FormControl(null),
+    })
+  }
 }

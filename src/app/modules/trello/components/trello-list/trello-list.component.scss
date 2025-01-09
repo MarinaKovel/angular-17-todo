@@ -5,3 +5,30 @@
 .container {
     flex: 1;
 }
+
+article {
+    background-color: #f5c9a8;
+    color: #f07838;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    min-width: 200px;
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task > * {
+    margin: 0;
+}
+
+.right {
+    text-align: right;
+}
+
+.task-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

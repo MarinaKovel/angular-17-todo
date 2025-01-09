@@ -1,8 +1,103 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
 
+$custom-primary: (
+  50: #e5e7e9,
+  100: #bfc3c8,
+  200: #959ba3,
+  300: #6a727e,
+  400: #4a5463,
+  500: #5c6b8a,
+  600: #253040,
+  700: #1f2937,
+  800: #19222f,
+  900: #0f1620,
+  A100: #629eff,
+  A200: #2f7fff,
+  A400: #0060fb,
+  A700: #0057e1,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$custom-secondary: (
+  50: #e5e7e9,
+  100: #bfc3c8,
+  200: #959ba3,
+  300: #6a727e,
+  400: #4a5463,
+  500: #a2b8d2,
+  600: #253040,
+  700: #1f2937,
+  800: #19222f,
+  900: #0f1620,
+  A100: #629eff,
+  A200: #2f7fff,
+  A400: #0060fb,
+  A700: #0057e1,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$custom-text-colors: (
+  light: #f5c9a8,
+  dark: #5c6b8a,
+  accent: #f07838,
+);
+
+@function get-custom-text-color($key) {
+    @return map-get($custom-text-colors, $key);
+  }
+
+$my-app-primary: mat.define-palette($custom-primary, 500);
+$my-app-secondary: mat.define-palette($custom-secondary, 500);
+$my-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-app-warn: mat.define-palette(mat.$red-palette);
+
+$my-app-theme: mat.define-light-theme((
+    color: (
+        primary: $my-app-primary,
+        secondary: $my-app-secondary,
+        accent: $my-app-accent,
+        warn: $my-app-warn,
+        text: $custom-text-colors
+    )
+));
+
+@include mat.all-component-themes($my-app-theme);
+
 html, body { 
     height: 100%; 
+    color: get-custom-text-color(light);
+    background-color: get-custom-text-color(accent);
 }
 
 body { 
@@ -15,17 +110,3 @@ app-root {
     flex-direction: column;
     justify-content: space-between;
 }
-
-$my-app-primary: mat.define-palette(mat.$pink-palette);
-$my-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$my-app-warn: mat.define-palette(mat.$red-palette);
-
-$my-app-theme: mat.define-light-theme((
-    color: (
-        primary: $my-app-primary,
-        accent: $my-app-accent,
-        warn: $my-app-warn
-    )
-));
-
-@include mat.all-component-themes($my-app-theme);

@@ -8,6 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [{
     path: '',
@@ -24,7 +25,8 @@ const routes: Routes = [{
     MatSelectModule,
     MatInputModule,
     FormsModule,
-    MatButton
+    MatButton,
+    MatIconModule
   ]
 })
 export class TrelloModule { }

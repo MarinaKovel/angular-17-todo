@@ -1,12 +1,12 @@
-<mat-grid-list cols="3" rowHeight="50px" gutterSize="10px">
+<mat-grid-list cols="3" rowHeight="70px" gutterSize="1px">
     <!-- @for(tile of tiles; track $index) {
         <mat-grid-tile [colspan]="tile.cols" [rowspan]="tile.rows">{{tile.content}}</mat-grid-tile>
     } -->
 
-    <mat-grid-tile [colspan]="3" [rowspan]="1">
-        <form [formGroup]="search" (submit)="submit()">
+    <mat-grid-tile [colspan]="3" [rowspan]="1" class="search">
+        <form [formGroup]="search" (ngSubmit)="submit()">
             <mat-form-field>
-              <input matInput formControlName="Search" placeholder="Search task..">
+              <input matInput formControlName="search" placeholder="Search task..">
             </mat-form-field>
         </form>
     </mat-grid-tile>

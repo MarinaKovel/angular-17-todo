@@ -42,5 +42,24 @@
 </ng-container>
 <ng-container *ngIf="authService.isAdmin()">
     <h2>All tasks</h2>
-    <div *ngFor="let task of tasks">{{task | json}}</div>
+    <div class="task-container">
+        <div *ngFor="let task of tasks">
+            <article class="top-container">
+                <div class="task">
+                    <h3>{{task.task}}</h3>
+                    <p>{{task.type}}</p>
+                    <br />
+                    <p><b>Worker:</b> {{task.worker}}</p>
+                    <p><b>Creator:</b> {{task.creator}}</p>
+                    <p><b>Created:</b> {{task.date}}</p>
+                </div>
+                <div class="right">
+                    <p>{{task.priority}}</p>
+                    <mat-icon *ngIf="task.isDone" fontIcon="done" ></mat-icon>
+                    <mat-icon *ngIf="!task.isDone" fontIcon="circle" ></mat-icon>
+                </div>
+            </article>
+        </div>
+    </div>
+    
 </ng-container>
