@@ -9,6 +9,7 @@ import { TaskPriorityTypes } from '../../../../types/task-priority.types';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 const ELEMENT_DATA: UserRegisterData[] = [
   {email: '1@1', password: '11111', login: '1', isAuth: false},
@@ -34,6 +35,8 @@ export class TrelloComponent implements AfterViewInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA)
 
   @ViewChild('trelloListComponent') private trelloListComponent!: TrelloListComponent
+  @ViewChild(MatSort) sort?: MatSort
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
 
   constructor(
     public authService: AuthService,
@@ -79,7 +82,6 @@ export class TrelloComponent implements AfterViewInit {
     }
 
   private _liveAnnouncer = inject(LiveAnnouncer);
-  @ViewChild(MatSort) sort?: MatSort;
 
   public announceSortChange(sortState: Sort) {
     if (sortState.direction) {
@@ -92,6 +94,10 @@ export class TrelloComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.sort) {
       this.dataSource.sort = this.sort;
+    }
+
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
     }
   }
 }

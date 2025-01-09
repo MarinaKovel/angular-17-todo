@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 
 const routes: Routes = [{
     path: '',
@@ -34,7 +34,7 @@ const routes: Routes = [{
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginator
   ]
 })
 export class TrelloModule { }
